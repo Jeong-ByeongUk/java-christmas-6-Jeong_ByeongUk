@@ -9,5 +9,6 @@ public class Application {
 
         output.opening();
         input.readDate(customerOrder);
+        input.readMenu(customerOrder);
     }
 }
