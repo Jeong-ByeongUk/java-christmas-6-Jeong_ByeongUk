@@ -5,9 +5,9 @@ import java.util.Arrays;
 public class Order {
     int date;
 
-    void inputDate(int input){
-        dateException(input);
-        date = input;
+    void inputDate(String input){
+        date = Integer.parseInt(input);
+        dateException(date);
     }
 
     void dateException(int input){
