@@ -11,11 +11,14 @@ public class Application {
         output.opening();
         input.readDate(customerOrder);
         input.readMenu(customerOrder);
-        restaurantPromotion.freebieCheck(customerOrder.totalPrice);
-        restaurantPromotion.dDayCheck(customerOrder.date);
-        restaurantPromotion.weekCheck(customerOrder);
-        restaurantPromotion.specialCheck(customerOrder.date);
-        restaurantPromotion.sumPromotionPrice();
-        restaurantPromotion.badgeCheck();
+        restaurantPromotion.promotionCheck(customerOrder.totalPrice);
+        if(restaurantPromotion.applyPromotion) {
+            restaurantPromotion.freebieCheck(customerOrder.totalPrice);
+            restaurantPromotion.dDayCheck(customerOrder.date);
+            restaurantPromotion.weekCheck(customerOrder);
+            restaurantPromotion.specialCheck(customerOrder.date);
+            restaurantPromotion.sumPromotionPrice();
+            restaurantPromotion.badgeCheck();
+        }
     }
 }

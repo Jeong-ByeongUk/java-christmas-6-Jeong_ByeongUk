@@ -1,11 +1,18 @@
 package christmas;
 
 public class Promotion {
+    boolean applyPromotion = true;
     boolean freebie = false;
-    int dDayDiscount;
-    int weekDiscount;
-    int specialDiscount;
-    int totalPromotionPrice;
+    int dDayDiscount = 0;
+    int weekDiscount = 0;
+    int specialDiscount = 0;
+    int totalPromotionPrice = 0;
+
+    void promotionCheck(int totalPrice){
+        if(totalPrice < 10000) {
+            applyPromotion = false;
+        }
+    }
 
     void freebieCheck(int totalPrice){
         if(totalPrice >= 120000){
