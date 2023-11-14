@@ -7,6 +7,7 @@ public class Order {
     int date;
     int numOfMenu[] = new int[Menu.values().length];
     int numOfCourse[] = new int[Course.values().length];
+    int totalPrice = 0;
 
     void inputDate(String input){
         date = Integer.parseInt(input);
@@ -26,6 +27,8 @@ public class Order {
             stareNumOfMenu(menus[i], menus[i+1]);
             stareNumOfCourse(menus[i], menus[i+1]);
         }
+
+        sumPrice();
     }
 
     void stareNumOfMenu(String name, String num){
@@ -37,6 +40,14 @@ public class Order {
         String courseName = Menu.valueOf(name).getCourse();
         int index = Course.valueOf(courseName).ordinal();
         numOfCourse[index] += Integer.parseInt(num);
+    }
+
+    void sumPrice(){
+        Menu[] checkPrice = Menu.values();
+
+        for(int i = 0; i < numOfMenu.length; i++){
+            totalPrice += checkPrice[i].getNumPrice() * numOfMenu[i];
+        }
     }
 }
 

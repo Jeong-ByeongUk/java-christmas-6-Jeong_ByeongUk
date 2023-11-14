@@ -56,8 +56,26 @@ public class test {
         return Stream.of(
                 Arguments.arguments("해산물파스타-1", new int[]{0,1,0,0}),
                 Arguments.arguments("해산물파스타-2", new int[]{0,2,0,0}),
-                Arguments.arguments("해산물파스타-1,레드와인-1", new int[]{0,1,0,1}),
-                Arguments.arguments("해산물파스타-1,레드와인-1,샴페인-2", new int[]{0,1,0,3})
+                Arguments.arguments("양송이수프-1,레드와인-1", new int[]{1,0,0,1}),
+                Arguments.arguments("초코케이크-1,레드와인-1,샴페인-2", new int[]{0,0,1,3})
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("testPrice")
+    void 총_금액_합산_테스트(String input, int output){
+        testOrder.inputMenu(input);
+
+        assertThat(testOrder.totalPrice).isEqualTo(output);
+    }
+
+    static Stream<Arguments> testPrice(){
+        return Stream.of(
+                Arguments.arguments("해산물파스타-1", 35000),
+                Arguments.arguments("해산물파스타-2", 70000),
+                Arguments.arguments("해산물파스타-1,레드와인-1", 95000),
+                Arguments.arguments("해산물파스타-1,레드와인-1,샴페인-2", 145000),
+                Arguments.arguments("크리스마스파스타-1,초코케이크-1,제로콜라-2", 46000)
         );
     }
 }
