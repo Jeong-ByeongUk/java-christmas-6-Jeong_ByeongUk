@@ -28,6 +28,9 @@ public class Order {
             stareNumOfCourse(menus[i], menus[i+1]);
         }
 
+        exce.drinkException(numOfCourse);
+        exce.placeException(numOfCourse);
+
         sumPrice();
     }
 

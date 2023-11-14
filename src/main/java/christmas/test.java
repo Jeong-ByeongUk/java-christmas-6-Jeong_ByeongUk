@@ -78,4 +78,20 @@ public class test {
                 Arguments.arguments("크리스마스파스타-1,초코케이크-1,제로콜라-2", 46000)
         );
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"레드와인-1", "샴페인-1", "제로콜라-1", "제로콜라-1,레드와인-3"})
+    void 음료만_주문_시_예외처리_테스트(String input){
+
+        assertThatThrownBy(()->testOrder.inputMenu(input))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"티본스테이크-21", "티본스테이크-10,바비큐립-10,샴페인-1"})
+    void 메뉴_스무개_초과_주문_시_예외처리_테스트(String input){
+
+        assertThatThrownBy(()->testOrder.inputMenu(input))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }

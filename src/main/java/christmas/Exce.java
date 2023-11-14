@@ -65,4 +65,18 @@ public class Exce {
             throw new IllegalArgumentException();
         }
     }
+
+    void drinkException(int[] numOfCourse){
+        if(numOfCourse[Course.메인.ordinal()] == 0 && numOfCourse[Course.에피타이저.ordinal()] == 0 && numOfCourse[Course.디저트.ordinal()] == 0){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    void placeException(int[] numOfCourse){
+        int sum = Arrays.stream(numOfCourse).sum();
+
+        if(sum > 20){
+            throw new IllegalArgumentException();
+        }
+    }
 }
