@@ -3,50 +3,40 @@ package christmas;
 import java.util.Arrays;
 
 public class Order {
+    Exce exce = new Exce();
     int date;
+    int numOfMenu[] = new int[Menu.values().length];
+    int numOfCourse[] = new int[Course.values().length];
 
     void inputDate(String input){
         date = Integer.parseInt(input);
-        dateException(date);
-    }
-
-    void dateException(int input){
-        if(input < 1 || input > 31){
-            throw new IllegalArgumentException();
-        }
+        exce.dateException(date);
     }
 
     void inputMenu(String input){
-        String[] menus = input.split(",|-");
+        String[] menus;
 
-        lastCharException(input);
+        exce.menuException(input);
+
+        menus = input.split(",|-");
+
+        Arrays.fill(numOfMenu, 0);
+        Arrays.fill(numOfCourse, 0);
         for(int i = 0; i < menus.length; i = i + 2) {
-            nameException(menus[i]);
-            numException(menus[i+1]);
+            stareNumOfMenu(menus[i], menus[i+1]);
+            stareNumOfCourse(menus[i], menus[i+1]);
         }
     }
 
-    void lastCharException(String input){
-        try{
-            Integer.parseInt(input.substring(input.length()-1));
-        } catch (NumberFormatException e){
-            throw new IllegalArgumentException();
-        }
-    }
-    void nameException(String input){
-        Menu.valueOf(input);
+    void stareNumOfMenu(String name, String num){
+        int index = Menu.valueOf(name).ordinal();
+        numOfMenu[index] = Integer.parseInt(num);
     }
 
-    void numException(String input){
-        int check;
-        try {
-            check = Integer.parseInt(input);
-        } catch (NumberFormatException e){
-            throw new IllegalArgumentException();
-        }
-        if(check < 1) {
-            throw new IllegalArgumentException();
-        }
+    void stareNumOfCourse(String name, String num){
+        String courseName = Menu.valueOf(name).getCourse();
+        int index = Course.valueOf(courseName).ordinal();
+        numOfCourse[index] += Integer.parseInt(num);
     }
 }
 
