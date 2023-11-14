@@ -14,5 +14,8 @@ public class Application {
         restaurantPromotion.freebieCheck(customerOrder.totalPrice);
         restaurantPromotion.dDayCheck(customerOrder.date);
         restaurantPromotion.weekCheck(customerOrder);
+        restaurantPromotion.specialCheck(customerOrder.date);
+        restaurantPromotion.sumPromotionPrice();
+        restaurantPromotion.badgeCheck();
     }
 }
