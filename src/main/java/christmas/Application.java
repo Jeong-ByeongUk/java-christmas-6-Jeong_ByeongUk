@@ -12,5 +12,7 @@ public class Application {
         input.readDate(customerOrder);
         input.readMenu(customerOrder);
         restaurantPromotion.freebieCheck(customerOrder.totalPrice);
+        restaurantPromotion.dDayCheck(customerOrder.date);
+        restaurantPromotion.weekCheck(customerOrder);
     }
 }

@@ -94,4 +94,36 @@ public class UnitTest {
         assertThatThrownBy(()->testOrder.inputMenu(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"THU", "FRI", "SAT", "SUN", "MON", "TUE", "WED"})
+    void 주말_확인_테스트(String input){
+        Week testWeek = Week.valueOf(input);
+
+        assertThat(testWeek.checkWeekend()).isTrue();
+    }
+
+    @ParameterizedTest
+    @MethodSource("testWeekDiscount")
+    void 평일_주말_할인_이벤트_테스트(String menu, int date, int output){
+        Promotion testPro = new Promotion();
+
+        testOrder.inputMenu(menu);
+        testOrder.date = date;
+
+        testPro.weekCheck(testOrder);
+
+        assertThat(testPro.weekDiscount).isEqualTo(output);
+    }
+
+    static Stream<Arguments> testWeekDiscount(){
+        return Stream.of(
+                Arguments.arguments("해산물파스타-1", 1, 2023),
+                Arguments.arguments("해산물파스타-2", 1, 4046),
+                Arguments.arguments("초코케이크-1", 1, 0),
+                Arguments.arguments("초코케이크-1", 3, 2023),
+                Arguments.arguments("해산물파스타-1,초코케이크-1", 1, 2023),
+                Arguments.arguments("해산물파스타-1,초코케이크-1", 3, 2023)
+        );
+    }
 }
