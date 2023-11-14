@@ -6,9 +6,11 @@ public class Application {
         InputView input = new InputView();
         OutputView output = new OutputView();
         Order customerOrder = new Order();
+        Promotion restaurantPromotion = new Promotion();
 
         output.opening();
         input.readDate(customerOrder);
         input.readMenu(customerOrder);
+        restaurantPromotion.freebieCheck(customerOrder.totalPrice);
     }
 }
