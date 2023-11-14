@@ -6,6 +6,7 @@ public class Promotion {
     int dDayDiscount = 0;
     int weekDiscount = 0;
     int specialDiscount = 0;
+    int totalDiscountPrice = 0;
     int totalPromotionPrice = 0;
 
     void promotionCheck(int totalPrice){
@@ -24,27 +25,25 @@ public class Promotion {
         if(date > 25) {
             return;
         }
-        dDayDiscount = 900 + date * 100;
+        dDayDiscount = -(900 + date * 100);
     }
 
     void weekCheck(Order customerOrder){
-        Week[] weeks = Week.values();
-        Week dateOfWeek = weeks[customerOrder.date % weeks.length];
+        Week dateOfWeek = customerOrder.orderWeek;
 
-        if(dateOfWeek.checkWeekend()){
-            weekDiscount = customerOrder.numOfCourse[Course.메인.ordinal()] * 2023;
+        if(dateOfWeek.getWeekly().equals("주말")){
+            weekDiscount = -(customerOrder.numOfCourse[Course.메인.ordinal()] * 2023);
         }
-        else if(!dateOfWeek.checkWeekend()){
-            weekDiscount = customerOrder.numOfCourse[Course.디저트.ordinal()] * 2023;
+        if(dateOfWeek.getWeekly().equals("평일")){
+            weekDiscount = -(customerOrder.numOfCourse[Course.디저트.ordinal()] * 2023);
         }
     }
 
-    void specialCheck(int date){
-        Week[] weeks = Week.values();
-        Week dateOfWeek = weeks[date % weeks.length];
+    void specialCheck(Order customerOrder){
+        Week dateOfWeek = customerOrder.orderWeek;
 
-        if(dateOfWeek.equals(Week.SUN) || date == 25){
-            specialDiscount = 1000;
+        if(dateOfWeek.getKor().equals("일") || customerOrder.date == 25){
+            specialDiscount = -1000;
         }
     }
 
@@ -52,19 +51,20 @@ public class Promotion {
         int freebiePrice = 0;
 
         if(freebie){
-            freebiePrice = Menu.샴페인.getNumPrice();
+            freebiePrice = -(Menu.샴페인.getNumPrice());
         }
-        totalPromotionPrice = dDayDiscount + weekDiscount + specialDiscount + freebiePrice;
+        totalDiscountPrice = dDayDiscount + weekDiscount + specialDiscount;
+        totalPromotionPrice = totalDiscountPrice + freebiePrice;
     }
 
     Badge badgeCheck(){
-        if(totalPromotionPrice > Badge.SANTA.price){
+        if(totalPromotionPrice < Badge.SANTA.getPrice()){
             return Badge.SANTA;
         }
-        else if(totalPromotionPrice > Badge.TREE.price){
+        else if(totalPromotionPrice < Badge.TREE.getPrice()){
             return Badge.TREE;
         }
-        else if(totalPromotionPrice > Badge.STAR.price){
+        else if(totalPromotionPrice < Badge.STAR.getPrice()){
             return Badge.STAR;
         }
         return null;

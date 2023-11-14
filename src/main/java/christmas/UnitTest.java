@@ -100,7 +100,7 @@ public class UnitTest {
     void 주말_확인_테스트(String input){
         Week testWeek = Week.valueOf(input);
 
-        assertThat(testWeek.checkWeekend()).isTrue();
+        assertThat(testWeek.getWeekly()).isEqualTo("주말");
     }
 
     @ParameterizedTest

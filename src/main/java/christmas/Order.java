@@ -8,10 +8,18 @@ public class Order {
     int numOfMenu[] = new int[Menu.values().length];
     int numOfCourse[] = new int[Course.values().length];
     int totalPrice = 0;
+    Week orderWeek;
 
     void inputDate(String input){
         date = Integer.parseInt(input);
+        checkWeek();
         exce.dateException(date);
+    }
+
+    void checkWeek(){
+        Week[] weeks = Week.values();
+
+        orderWeek = weeks[date % weeks.length];
     }
 
     void inputMenu(String input){
